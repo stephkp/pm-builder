@@ -3,7 +3,9 @@ require "json"
 module ApplicationHelper
 
   def vite_react_tags
-    if Rails.env.development?
+    if Rails.env.test?
+      return "".html_safe
+    elsif Rails.env.development?
       dev_server = ENV.fetch("FRONTEND_URL", "http://localhost:5173")
 
       react_refresh_preamble = tag.script(type: "module") do

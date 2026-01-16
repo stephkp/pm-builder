@@ -8,7 +8,7 @@ function Home() {
       <div className="section-header">
         <h1 className="section-header__title">PM Investor Management</h1>
         <p className="section-header__description">
-          Bring your investors and their financial documents into one secure system - fast.
+          Bring your investors and their financial documents into one secure system - fast.<br />
           Import existing data in minutes and let us handle ongoing verification and updates,
           so you can focus on your platform, not paperwork.
         </p>

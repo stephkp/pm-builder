@@ -83,6 +83,20 @@ docker compose exec frontend npm install
 docker compose exec frontend npm run dev
 ```
 
+### Testing
+```
+docker compose exec app bin/rails test
+```
+
+```
+docker compose exec app bin/rails test test/controllers/investors_controller_test.rb
+```
+
+
+```bash
+docker compose exec app bin/rails test
+```
+
 ## Troubleshooting
 
 ### "Database not configured" / connection errors locally
