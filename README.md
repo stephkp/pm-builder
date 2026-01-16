@@ -42,8 +42,6 @@ docker compose exec app bundle exec rails db:drop db:create db:migrate
 - Rails: `http://localhost:3000`
 - Frontend (Vite): `http://localhost:5173`
 
-## Local development (no Docker)
-
 ### Backend (Rails)
 
 #### Prerequisites
@@ -86,9 +84,6 @@ docker compose exec frontend yarn dev
 ### Testing
 ``` bash
 docker compose exec app bin/rails test
-```
-
-``` bash
 docker compose exec app bin/rails test test/controllers/investors_controller_test.rb
 ```
 
@@ -114,5 +109,5 @@ Below are some features I would have liked to have implemented. However, due to 
 
 - Authentication (WIP)
 - Additional UI / UX Clean Up
+- UI / UX features (Thumbnails for documents etc.)
 - E2E Testing
-- Ability to add multiple documents to an investor
