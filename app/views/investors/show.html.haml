@@ -1,0 +1,42 @@
+.investor-detail
+  .investor-detail__container
+    .page__header.bg-success.text-white
+      %h2.page__title Investor Information
+    .card-body
+      .mb-4
+        .table-responsive
+          %table.table
+            %tbody
+              %tr
+                %th Name:
+                %td= "#{@investor.first_name} #{@investor.last_name}"
+              %tr
+                %th Date of Birth:
+                %td= @investor.date_of_birth&.strftime('%m/%d/%Y')
+              %tr
+                %th Phone Number:
+                %td= @investor.phone_number
+              %tr
+                %th SSN:
+                %td= masked_ssn(@investor.ssn)
+              %tr
+                %th Address:
+                %td
+                  = @investor.street_address
+                  %br/
+                  = "#{@investor.state} #{@investor.zip_code}"
+              %tr
+                %th Created:
+                %td= @investor.created_at
+      - if @investor.documents.attached?
+        .investor-detail__files
+          %h4 Uploaded Files:
+          %ul.list-group
+            - @investor.documents.each do |document|
+              %li.list-group-item
+                = link_to document.filename, rails_blob_path(document, disposition: "inline"), target: '_blank', rel: 'noopener'
+                %span.text-muted
+                  (#{number_to_human_size(document.byte_size)})
+      .investor-detail__actions
+        = link_to 'Add Another Investor', new_investor_path, class: 'btn btn--cta btn--primary'
+        = link_to 'View All Investors', investors_path, class: 'btn btn--cta btn--primary'
