@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     get 'success', on: :collection
     member do
       get 'download/:document_id', to: 'investors#download', as: 'download'
+      delete 'documents/:document_id', to: 'investors#destroy_document'
     end
   end
 

@@ -96,4 +96,74 @@
   }
 }
 
+.existing-documents {
+  margin-bottom: 1rem;
+
+  &__title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    color: #334155;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.375rem;
+    margin-bottom: 0.5rem;
+    background-color: #f8fafc;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__link {
+    color: #2563eb;
+    text-decoration: none;
+    font-size: 0.9rem;
+    flex: 1;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__size {
+    color: #64748b;
+    font-size: 0.8rem;
+  }
+
+  &__delete {
+    background: none;
+    border: none;
+    color: #ef4444;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    transition: all 0.2s;
+    margin-left: auto;
+
+    &:hover {
+      background-color: #fef2f2;
+      color: #dc2626;
+    }
+
+    &:focus {
+      outline: 2px solid #ef4444;
+      outline-offset: 1px;
+    }
+  }
+}
+
 

@@ -11,11 +11,16 @@ module Types
     field :zip_code, String, null: true
     field :ssn, String, null: true
     field :documents_attached, Boolean, null: false
+    field :documents, [Types::AttachmentType], null: true
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 
     def documents_attached
       object.documents.attached?
+    end
+
+    def documents
+      object.documents
     end
   end
 end

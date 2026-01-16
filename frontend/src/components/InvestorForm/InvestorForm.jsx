@@ -71,6 +71,36 @@ export default function InvestorForm({ mode, investorId }) {
   }
 
   const [documents, setDocuments] = useState([]);
+  const [existingDocuments, setExistingDocuments] = useState([]);
+
+  async function handleDeleteDocument(documentId) {
+    try {
+      const csrfToken = getCsrfToken();
+      if (!csrfToken) {
+        throw new Error('Missing CSRF token');
+      }
+
+      const response = await fetch(`/investors/${investorId}/documents/${documentId}`, {
+        method: 'DELETE',
+        headers: {
+          'X-CSRF-Token': csrfToken,
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        credentials: 'same-origin',
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || 'Failed to delete document');
+      }
+
+      // Remove from local state
+      setExistingDocuments(prev => prev.filter(doc => doc.id !== documentId));
+    } catch (error) {
+      setSubmitError(error);
+    }
+  }
 
   const title = useMemo(() => {
     if (isEdit) return 'Edit Investor';
@@ -97,6 +127,10 @@ export default function InvestorForm({ mode, investorId }) {
           setSubmitError(new Error('Investor not found.'));
           return;
         }
+
+        // Set existing documents
+        const docs = inv.documents || [];
+        setExistingDocuments(docs);
 
         reset({
           first_name: inv.firstName ?? '',
@@ -450,6 +484,39 @@ export default function InvestorForm({ mode, investorId }) {
 
           <div className="form__field">
             <label className="form__label" htmlFor="documents">Documents</label>
+
+            {/* Show existing documents in edit mode */}
+            {isEdit && existingDocuments.length > 0 && (
+              <div className="existing-documents">
+                <h4 className="existing-documents__title">Uploaded Files:</h4>
+                <ul className="existing-documents__list">
+                  {existingDocuments.map((doc) => (
+                    <li key={doc.id} className="existing-documents__item">
+                      <a
+                        href={doc.downloadUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="existing-documents__link"
+                      >
+                        {doc.filename}
+                      </a>
+                      <span className="existing-documents__size">
+                        ({Math.round(doc.byteSize / 1024)}KB)
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteDocument(doc.id)}
+                        className="existing-documents__delete"
+                        title="Delete document"
+                      >
+                        ×
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             <input
               id="documents"
               name="documents"
@@ -497,7 +564,9 @@ export default function InvestorForm({ mode, investorId }) {
               }}
               ref={documentsRef}
             />
-            <div className="form__help">Attach at least 1 file.</div>
+            <div className="form__help">
+              {isEdit ? 'Add more documents (optional)' : 'Attach at least 1 file.'}
+            </div>
             {errors.documents?.message && (
               <div className="form__error">{errors.documents.message}</div>
             )}

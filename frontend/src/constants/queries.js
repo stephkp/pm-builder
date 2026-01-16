@@ -11,6 +11,12 @@ export const INVESTOR_QUERY = `
       state
       zipCode
       ssn
+      documents {
+        id
+        filename
+        byteSize
+        downloadUrl
+      }
     }
   }
 `;

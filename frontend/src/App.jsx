@@ -5,14 +5,23 @@ import InvestorForm from './components/InvestorForm/InvestorForm';
 function Home() {
   return (
     <>
-    <div className="section-header">
-      <h1 className="section-header__title">PM Investor Management</h1>
-      <p className="section-header__description">
-        Bring your investors and their financial documents into one secure system - fast.
-        Import existing data in minutes and let us handle ongoing verification and updates,
-        so you can focus on your platform, not paperwork.
-      </p>
-    </div>
+      <div className="section-header">
+        <h1 className="section-header__title">PM Investor Management</h1>
+        <p className="section-header__description">
+          Bring your investors and their financial documents into one secure system - fast.
+          Import existing data in minutes and let us handle ongoing verification and updates,
+          so you can focus on your platform, not paperwork.
+        </p>
+      </div>
+
+      <div className="section-header__cta">
+        <a
+          href="/investors/new"
+          className="btn btn--cta btn--primary"
+        >
+          Start
+        </a>
+      </div>
 
       <div className="section-header__features" aria-label="Key product features">
         <div className="section-header__feature">
@@ -46,15 +55,6 @@ function Home() {
           <div className="section-header__feature-title">Smart Investments</div>
           <div className="section-header__feature-text">Organize documents for streamlined diligence.</div>
         </div>
-      </div>
-
-      <div className="section-header__cta">
-      <a
-        href="/investors/new"
-        className="btn btn--cta btn--primary"
-      >
-        Start
-      </a>
       </div>
     </>
   );

@@ -82,6 +82,29 @@ end
                 alert: 'The requested investor or document could not be found.'
   end
 
+  def destroy_document
+    @investor = Investor.find(params[:id])
+    attachment = @investor.documents.find_by(id: params[:document_id])
+
+    if attachment
+      attachment.purge
+      respond_to do |format|
+        format.json { render json: { success: true } }
+        format.html { redirect_to edit_investor_path(@investor), notice: 'Document was successfully deleted.' }
+      end
+    else
+      respond_to do |format|
+        format.json { render json: { error: 'Document not found' }, status: :not_found }
+        format.html { redirect_to edit_investor_path(@investor), alert: 'Document not found.' }
+      end
+    end
+  rescue ActiveRecord::RecordNotFound
+    respond_to do |format|
+      format.json { render json: { error: 'Investor not found' }, status: :not_found }
+      format.html { redirect_to investors_path, alert: 'Investor not found.' }
+    end
+  end
+
   private
 
   def investor_params
