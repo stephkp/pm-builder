@@ -252,7 +252,13 @@ export default function InvestorForm({ mode, investorId }) {
                 name="first_name"
                 className={errors.first_name ? 'form__input form__input--error' : 'form__input'}
                 required
-                {...register('first_name', FIELD_VALIDATIONS.first_name)}
+                {...register('first_name', {
+                  ...FIELD_VALIDATIONS.first_name,
+                  onChange: (e) => {
+                    e.target.value = e.target.value.trimStart();
+                    FIELD_VALIDATIONS.first_name?.onChange?.(e);
+                  }
+                })}
               />
               {errors.first_name?.message && (
                 <div className="form__error">{errors.first_name.message}</div>
@@ -265,7 +271,13 @@ export default function InvestorForm({ mode, investorId }) {
                 name="last_name"
                 className={errors.last_name ? 'form__input form__input--error' : 'form__input'}
                 required
-                {...register('last_name', FIELD_VALIDATIONS.last_name)}
+                {...register('last_name', {
+                  ...FIELD_VALIDATIONS.last_name,
+                  onChange: (e) => {
+                    e.target.value = e.target.value.trimStart();
+                    FIELD_VALIDATIONS.last_name?.onChange?.(e);
+                  }
+                })}
               />
               {errors.last_name?.message && (
                 <div className="form__error">{errors.last_name.message}</div>
@@ -320,12 +332,35 @@ export default function InvestorForm({ mode, investorId }) {
           <div className="form__grid form__grid--2">
             <div className="form__field">
               <label className="form__label" htmlFor="phone_number">Phone Number</label>
-              <input
-                id="phone_number"
+              <Controller
+                control={control}
                 name="phone_number"
-                className={errors.phone_number ? 'form__input form__input--error' : 'form__input'}
-                required
-                {...register('phone_number', FIELD_VALIDATIONS.phone_number)}
+                rules={FIELD_VALIDATIONS.phone_number}
+                render={({ field }) => (
+                  <input
+                    id="phone_number"
+                    name="phone_number"
+                    type="tel"
+                    inputMode="tel"
+                    placeholder="(123) 456-7890"
+                    maxLength={14}
+                    className={errors.phone_number ? 'form__input form__input--error' : 'form__input'}
+                    required
+                    value={field.value}
+                    onChange={(e) => {
+                      const digits = e.target.value.replace(/\D/g, '').slice(0, 10);
+                      let formatted = digits;
+                      if (digits.length >= 6) {
+                        formatted = `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+                      } else if (digits.length >= 3) {
+                        formatted = `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+                      }
+                      field.onChange(formatted);
+                    }}
+                    onBlur={field.onBlur}
+                    ref={field.ref}
+                  />
+                )}
               />
               {errors.phone_number?.message && (
                 <div className="form__error">{errors.phone_number.message}</div>
@@ -338,7 +373,13 @@ export default function InvestorForm({ mode, investorId }) {
                 name="street_address"
                 className={errors.street_address ? 'form__input form__input--error' : 'form__input'}
                 required
-                {...register('street_address', FIELD_VALIDATIONS.street_address)}
+                {...register('street_address', {
+                  ...FIELD_VALIDATIONS.street_address,
+                  onChange: (e) => {
+                    e.target.value = e.target.value.trimStart();
+                    FIELD_VALIDATIONS.street_address?.onChange?.(e);
+                  }
+                })}
               />
               {errors.street_address?.message && (
                 <div className="form__error">{errors.street_address.message}</div>
@@ -354,7 +395,13 @@ export default function InvestorForm({ mode, investorId }) {
                 name="city"
                 className={errors.city ? 'form__input form__input--error' : 'form__input'}
                 required
-                {...register('city', FIELD_VALIDATIONS.city)}
+                {...register('city', {
+                  ...FIELD_VALIDATIONS.city,
+                  onChange: (e) => {
+                    e.target.value = e.target.value.trimStart();
+                    FIELD_VALIDATIONS.city?.onChange?.(e);
+                  }
+                })}
               />
               {errors.city?.message && (
                 <div className="form__error">{errors.city.message}</div>
@@ -387,7 +434,13 @@ export default function InvestorForm({ mode, investorId }) {
                 name="zip_code"
                 className={errors.zip_code ? 'form__input form__input--error' : 'form__input'}
                 required
-                {...register('zip_code', FIELD_VALIDATIONS.zip_code)}
+                {...register('zip_code', {
+                  ...FIELD_VALIDATIONS.zip_code,
+                  onChange: (e) => {
+                    e.target.value = e.target.value.trimStart();
+                    FIELD_VALIDATIONS.zip_code?.onChange?.(e);
+                  }
+                })}
               />
               {errors.zip_code?.message && (
                 <div className="form__error">{errors.zip_code.message}</div>
@@ -403,8 +456,43 @@ export default function InvestorForm({ mode, investorId }) {
               type="file"
               className={errors.documents ? 'form__input form__input--documents form__input--error' : 'form__input form__input--documents'}
               multiple
+              accept=".jpg,.jpeg,.png,.doc,.docx,.pdf,.txt,.csv"
               onChange={(e) => {
-                setDocuments(Array.from(e.target.files || []));
+                const files = Array.from(e.target.files || []);
+                const maxSize = 3 * 1024 * 1024; // 3MB
+                const allowedTypes = ['.jpg', '.jpeg', '.png', '.doc', '.docx', '.pdf', '.txt', '.csv'];
+
+                // Check file size
+                const oversizedFiles = files.filter(file => file.size > maxSize);
+                if (oversizedFiles.length > 0) {
+                  const fileNames = oversizedFiles.map(f => f.name).join(', ');
+                  setFieldError('documents', {
+                    type: 'manual',
+                    message: `Files larger than 3MB are not allowed: ${fileNames}`
+                  });
+                  e.target.value = ''; // Clear the input
+                  setDocuments([]);
+                  return;
+                }
+
+                // Check file type
+                const invalidFiles = files.filter(file => {
+                  const extension = '.' + file.name.split('.').pop().toLowerCase();
+                  return !allowedTypes.includes(extension);
+                });
+
+                if (invalidFiles.length > 0) {
+                  const fileNames = invalidFiles.map(f => f.name).join(', ');
+                  setFieldError('documents', {
+                    type: 'manual',
+                    message: `Only JPG, PNG, DOC, DOCX, PDF, TXT, and CSV files are allowed.\nInvalid files: ${fileNames}`
+                  });
+                  e.target.value = ''; // Clear the input
+                  setDocuments([]);
+                  return;
+                }
+
+                setDocuments(files);
                 clearErrors('documents');
               }}
               ref={documentsRef}
