@@ -27,6 +27,16 @@ COPY Gemfile* ./
 # Install gems
 RUN bundle _2.3.26_ install --jobs 4 --retry 3
 
+# Copy frontend files
+COPY frontend/ /app/frontend/
+
+# Install frontend dependencies and build
+RUN if [ -d "/app/frontend" ]; then \
+      cd /app/frontend && \
+      yarn install --frozen-lockfile --network-timeout 600000 && \
+      yarn build; \
+    fi
+
 # Copy the rest of the application
 COPY . /app/
 
