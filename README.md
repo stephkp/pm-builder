@@ -3,7 +3,7 @@
 ## Background
 Rails 7 + PostgreSQL backend with a Vite/React/GraphQL frontend located in `frontend/`. 
 
-Rails was chosen due to time constraints and familiarity.
+Rails was chosen due to time constraints and familiarity.  
 
 ## Quickstart (recommended): Docker
 
@@ -81,6 +81,7 @@ From `frontend/`:
 ```bash
 docker compose exec frontend npm install
 docker compose exec frontend npm run dev
+```
 
 ## Troubleshooting
 
