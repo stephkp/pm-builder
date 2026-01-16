@@ -84,20 +84,16 @@ docker compose exec frontend yarn dev
 ```
 
 ### Testing
-```
+``` bash
 docker compose exec app bin/rails test
 ```
 
-```
+``` bash
 docker compose exec app bin/rails test test/controllers/investors_controller_test.rb
 ```
 
-
-```bash
-docker compose exec app bin/rails test
-```
-
 ## Troubleshooting
+
 
 ### "Database not configured" / connection errors locally
 
