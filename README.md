@@ -79,8 +79,8 @@ bundle exec rails s
 From `frontend/`:
 
 ```bash
-docker compose exec frontend npm install
-docker compose exec frontend npm run dev
+docker compose exec frontend yarn install
+docker compose exec frontend yarn dev
 ```
 
 ### Testing
