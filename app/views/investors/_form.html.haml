@@ -20,6 +20,9 @@
     .form__field
       = form.label :date_of_birth, 'Date of Birth', class: 'form-label'
       = form.date_field :date_of_birth, class: 'form-control', required: true, max: Date.today.years_ago(18).to_s
+    .form__field
+      = form.label :ssn, 'Social Security Number', class: 'form-label'
+      = form.text_field :ssn, class: 'form-control', required: true, pattern: '\d{3}-\d{2}-\d{4}', placeholder: '123-45-6789', maxlength: 11, inputmode: 'numeric', data: { ssn_mask: true }
 
   .form__field-group
     .form__field

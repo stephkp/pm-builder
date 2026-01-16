@@ -94,6 +94,7 @@ end
       :city, 
       :state, 
       :zip_code,
+      :ssn,
       documents: []
     )
   end
