@@ -468,11 +468,20 @@ export default function InvestorForm({ mode, investorId }) {
                 name="zip_code"
                 className={errors.zip_code ? 'form__input form__input--error' : 'form__input'}
                 required
+                maxLength={10}
+                placeholder="12345 or 12345-6789"
                 {...register('zip_code', {
                   ...FIELD_VALIDATIONS.zip_code,
                   onChange: (e) => {
-                    e.target.value = e.target.value.trimStart();
-                    FIELD_VALIDATIONS.zip_code?.onChange?.(e);
+                    let value = e.target.value.replace(/[^\d-]/g, '');
+                    // Only allow one hyphen after 5 digits
+                    const digits = value.replace(/-/g, '');
+                    if (digits.length <= 5) {
+                      value = digits;
+                    } else {
+                      value = digits.slice(0, 5) + '-' + digits.slice(5, 9);
+                    }
+                    e.target.value = value;
                   }
                 })}
               />

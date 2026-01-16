@@ -99,6 +99,11 @@ docker compose exec app bin/rails test test/controllers/investors_controller_tes
 
 Make sure `DATABASE_HOST`, `DATABASE_USERNAME`, and `DATABASE_PASSWORD` are set.
 
+## Could not find gem file
+```bash
+ docker compose exec app bundle install
+```
+
 ### Frontend can’t reach backend locally
 
 When running Docker, Vite proxies API calls to `http://app:3000`.
