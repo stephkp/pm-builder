@@ -446,7 +446,7 @@ export default function InvestorForm({ mode, investorId }) {
               <select
                 id="state"
                 name="state"
-                className={errors.state ? 'form__input form__input--error' : 'form__input form__select'}
+                className={errors.state ? 'form__input form__input--error form__select form__select--error' : 'form__input form__select'}
                 required
                 {...register('state', FIELD_VALIDATIONS.state)}
               >
@@ -537,7 +537,7 @@ export default function InvestorForm({ mode, investorId }) {
                     type: 'manual',
                     message: `Files larger than 3MB are not allowed: ${fileNames}`
                   });
-                  e.target.value = ''; // Clear the input
+                  e.target.value = '';
                   setDocuments([]);
                   return;
                 }
@@ -554,7 +554,7 @@ export default function InvestorForm({ mode, investorId }) {
                     type: 'manual',
                     message: `Only JPG, PNG, DOC, DOCX, PDF, TXT, and CSV files are allowed.\nInvalid files: ${fileNames}`
                   });
-                  e.target.value = ''; // Clear the input
+                  e.target.value = '';
                   setDocuments([]);
                   return;
                 }

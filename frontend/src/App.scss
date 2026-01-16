@@ -125,13 +125,17 @@
     margin-right: auto;
     max-width: 50vw;
   }
+}
 
-  &__features {
-    margin-top: 1.5rem;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1rem;
-  }
+.section-actions {
+  margin-top: 1rem;
+}
+
+.section-features {
+  margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
 
   &__feature {
     padding: 1rem;
@@ -244,7 +248,7 @@
     align-items: flex-start;
   }
 
-  .section-header__features {
+  .section-features {
     grid-template-columns: 1fr;
   }
 }
