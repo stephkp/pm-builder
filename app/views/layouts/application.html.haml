@@ -7,6 +7,8 @@
     = csrf_meta_tags
     = csp_meta_tag
 
+    = vite_react_tags
+
     = stylesheet_link_tag 'base', media: 'all', 'data-turbolinks-track': 'reload'
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
 
@@ -15,12 +17,7 @@
       %nav.nav
         .nav__container
           = link_to root_path, class: 'nav__logo' do
-            %span.logo-icon
-              %i.fas.fa-users
             %span.nav__logo-text Investor Management
-
-          %button.navbar-toggler{type: 'button', data: { toggle: 'collapse', target: '#navbarNav' }}
-            %span.navbar-toggler-icon
 
           .nav__bar
             %ul.nav__list
