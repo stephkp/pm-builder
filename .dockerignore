@@ -1,0 +1,15 @@
+# .dockerignore
+.git
+.gitignore
+.bundle
+log/*
+tmp/*
+!log/.keep
+!tmp/.keep
+.DS_Store
+node_modules
+public/packs
+public/packs-test
+storage/*
+!storage/.keep
+.env
