@@ -1,0 +1,10 @@
+%section.section-container
+  .section-header.new-investor__header
+    .section-header__title.new-investor__title
+      %h1="Investors"
+
+  = render 'investor_list', investors: @investors
+  
+  .mt-4
+    = link_to 'Add Investor', new_investor_path, class: 'btn btn-primary'
+  

@@ -1,0 +1,6 @@
+%section.component.component--new-investor.new-investor
+  .new-investor__header
+    .new-investor__title
+      %h2.text-center Add New Investor
+    .new-investor__form.form
+      = render partial: 'investors/form', locals: { investor: @investor }

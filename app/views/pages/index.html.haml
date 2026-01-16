@@ -1,0 +1,10 @@
+%section.section-container
+  .section-header.new-investor__header
+    .section-header__title.new-investor__title
+      %h1 PM Investor Management Home
+      %p="Bring your investors and their financial documents into one secure system - fast. Import existing data in minutes and let us handle ongoing verification and updates, so you can focus on your platform, not paperwork."
+  
+  .mt-4
+    = link_to 'New Investor', new_investor_path, class: 'btn btn-primary'
+  
+  -# = render 'investor_list', investors: @investors

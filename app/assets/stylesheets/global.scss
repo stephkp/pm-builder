@@ -1,0 +1,99 @@
+.nav {
+  background-color: #f8f9fa;
+  padding: 1rem 0;
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #333333;
+    font-weight: bold;
+    font-size: 1.25rem;
+
+    &:hover {
+      color: #007bff;
+      text-decoration: none;
+    }
+  }
+
+  &__logo-text {
+    margin-left: 0.5rem;
+  }
+
+  .logo-icon {
+    font-size: 1.5rem;
+  }
+
+  &__list {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+  }
+
+  &__link {
+    color: #333333;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+
+    &:hover {
+      background-color: #e9ecef;
+      color: #0056b3;
+    }
+
+    &.active {
+      background-color: #007bff;
+      color: white;
+    }
+  }
+}
+
+.btn {
+  &--submit {
+    min-width: 150px;
+    min-height: 25px;
+    padding: 10px;
+  }
+}
+
+.section-header {
+  margin: 30px;
+
+  &__cta {
+    margin-top: 20px;
+  }
+}
+
+.section-list {
+  margin: 30px;
+}
+
+.secton-form {
+  background: #ffffff;
+  padding: 1.25rem;
+}
+
+.investor-detail {
+  background: #ffffff;
+  padding: 1.25rem;
+
+  &__files {
+    margin-top: 20px;
+  }
+
+  &__actions {
+    margin-top: 20px;
+  }
+}

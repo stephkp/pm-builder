@@ -1,0 +1,36 @@
+%html{lang: 'en'}
+  %head
+    %meta{charset: 'utf-8'}
+    %meta{name: 'viewport', content: 'width=device-width, initial-scale=1.0'}
+    %title Investor Management System
+    
+    = csrf_meta_tags
+    = csp_meta_tag
+
+    = stylesheet_link_tag 'base', media: 'all', 'data-turbolinks-track': 'reload'
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+
+  %body
+    %header
+      %nav.nav
+        .nav__container
+          = link_to root_path, class: 'nav__logo' do
+            %span.logo-icon
+              %i.fas.fa-users
+            %span.nav__logo-text Investor Management
+
+          %button.navbar-toggler{type: 'button', data: { toggle: 'collapse', target: '#navbarNav' }}
+            %span.navbar-toggler-icon
+
+          .nav__bar
+            %ul.nav__list
+              %li.nav__item= link_to 'New Investor', new_investor_path, class: 'nav__link'
+              %li.nav__item= link_to 'View Investors', investors_path, class: 'nav__link'
+
+    %main.container
+      - flash.each do |type, message|
+        .alert{class: "alert-#{type}"}
+          = message
+          %button.close{type: 'button', data: { dismiss: 'alert' }} &times;
+
+      = yield

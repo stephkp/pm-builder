@@ -1,0 +1,33 @@
+%section.section-list
+  .card-body
+    - if investors.any?
+      .table-responsive
+        %table.table.table-hover
+          %thead
+            %tr
+              %th Name
+              %th Phone
+              %th Location
+              %th Documents
+              %th Actions
+          %tbody
+            - investors.each do |investor|
+              %tr
+                %td= "#{investor.first_name} #{investor.last_name}"
+                %td= investor.phone_number
+                %td= "#{investor.city}, #{investor.state} #{investor.zip_code}"
+                %td
+                  - if investor.documents.attached?
+                    - investor.documents.each do |document|
+                      .mb-1
+                        = link_to 'Download', rails_blob_path(document, disposition: "inline"), target: '_blank', class: 'btn btn-sm btn-link p-0'
+                  - else
+                    | No documents
+                %td
+                  .btn-group{role: 'group'}
+                    = link_to 'View', investor_path(investor), class: 'btn btn-sm btn-outline-primary'
+                    = link_to 'Edit', edit_investor_path(investor), class: 'btn btn-sm btn-outline-secondary'
+    - else
+      .text-center.py-4
+        %p.text-muted No investors found.
+        = link_to 'Add Your First Investor', new_investor_path, class: 'btn btn-primary'

@@ -1,0 +1,50 @@
+= form_with(model: investor, local: true, html: { class: 'needs-validation', novalidate: true }) do |form|
+  - if investor.errors.any?
+    .alert.alert-danger{role: "alert"}
+      %h5
+        = pluralize(investor.errors.count, "error")
+        prohibited this investor from being saved:
+      %ul
+        - investor.errors.full_messages.each do |message|
+          %li= message
+
+  .form__field-group
+    .form__field
+      = form.label :first_name, class: 'form-label'
+      = form.text_field :first_name, class: 'form-control', required: true
+    .form__field
+      = form.label :last_name, class: 'form-label'
+      = form.text_field :last_name, class: 'form-control', required: true
+
+  .form__field-group
+    .form__field
+      = form.label :date_of_birth, 'Date of Birth', class: 'form-label'
+      = form.date_field :date_of_birth, class: 'form-control', required: true, max: Date.today.years_ago(18).to_s
+
+  .form__field-group
+    .form__field
+      = form.label :phone_number, 'Phone Number', class: 'form-label'
+      = form.telephone_field :phone_number, class: 'form-control', required: true, pattern: '\d{10}|(?:\d{3}-){2}\d{4}|\(\d{3}\)\d{3}-?\d{4}'
+    .form__field
+      = form.label :street_address, 'Street Address', class: 'form-label'
+      = form.text_field :street_address, class: 'form-control', required: true
+
+  .form__field-group
+    .form__field
+      = form.label :city, class: 'form-label'
+      = form.text_field :city, class: 'form-control', required: true
+    .form__field
+      = form.label :state, class: 'form-label'
+      = form.select :state, options_for_select(%w[AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY], investor.state), { include_blank: 'Select a state' }, class: 'form-control', required: true
+    .form__field
+      = form.label :zip_code, 'Zip Code', class: 'form-label'
+      = form.text_field :zip_code, class: 'form-control', required: true, pattern: '\d{5}(-\d{4})?'
+
+  .form__field-group
+    .form__field
+      = form.label :documents, 'Documents', class: 'form-label'
+      = form.file_field :documents, multiple: true, class: 'form-control', required: false
+
+  .form__field-group.mt-4
+    = form.submit 'Save Changes', class: 'btn btn-primary'
+    = link_to 'Cancel', investors_path, class: 'btn btn-outline-secondary ms-2'
