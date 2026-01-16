@@ -1,6 +1,6 @@
 # pm-builder-new
 
-Rails 7 + PostgreSQL backend with a Vite/React frontend
+Rails 7 + PostgreSQL backend with a Vite/React frontend located in `frontend/`.
 
 ## Quickstart (recommended): Docker
 
@@ -18,6 +18,7 @@ This starts:
 
 - `db` (Postgres) on `localhost:5432`
 - `app` (Rails) on `localhost:3000`
+- `frontend` (Vite) on `localhost:5173`
 
 ### First-time database setup
 
@@ -36,6 +37,7 @@ docker compose exec app bundle exec rails db:drop db:create db:migrate
 ### URLs
 
 - Rails: `http://localhost:3000`
+- Frontend (Vite): `http://localhost:5173`
 
 ## Local development (no Docker)
 
@@ -69,8 +71,22 @@ bundle exec rails db:prepare
 bundle exec rails s
 ```
 
+### Frontend (Vite + React)
+
+From `frontend/`:
+
+```bash
+yarn install
+yarn dev
+```
+
 ## Troubleshooting
 
 ### "Database not configured" / connection errors locally
 
 Make sure `DATABASE_HOST`, `DATABASE_USERNAME`, and `DATABASE_PASSWORD` are set.
+
+### Frontend can’t reach backend locally
+
+When running Docker, Vite proxies API calls to `http://app:3000`.
+If running everything locally (no Docker), you may need to update the Vite proxy target in `frontend/vite.config.js` to `http://localhost:3000`.
