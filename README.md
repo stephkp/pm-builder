@@ -1,6 +1,9 @@
-# pm-builder-new
+# pm-builder
 
-Rails 7 + PostgreSQL backend with a Vite/React frontend located in `frontend/`.
+## Background
+Rails 7 + PostgreSQL backend with a Vite/React/GraphQL frontend located in `frontend/`. 
+
+Rails was chosen due to time constraints and familiarity.
 
 ## Quickstart (recommended): Docker
 
@@ -76,9 +79,8 @@ bundle exec rails s
 From `frontend/`:
 
 ```bash
-yarn install
-yarn dev
-```
+docker compose exec frontend npm install
+docker compose exec frontend npm run dev
 
 ## Troubleshooting
 
@@ -90,3 +92,11 @@ Make sure `DATABASE_HOST`, `DATABASE_USERNAME`, and `DATABASE_PASSWORD` are set.
 
 When running Docker, Vite proxies API calls to `http://app:3000`.
 If running everything locally (no Docker), you may need to update the Vite proxy target in `frontend/vite.config.js` to `http://localhost:3000`.
+
+### Notes
+Below are some features I would have liked to have implemented. However, due to time constraints, I was unable to include them:
+
+- Authentication (WIP)
+- Additional UI / UX Clean Up
+- E2E Testing
+- Ability to add multiple documents to an investor
