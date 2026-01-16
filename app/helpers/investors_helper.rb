@@ -53,4 +53,9 @@ module InvestorsHelper
       ['Wyoming', 'WY']
     ]
   end
+
+  def masked_ssn(ssn)
+    return 'N/A' if ssn.blank?
+    "*****-#{ssn.split('-').last}"
+  end
 end
